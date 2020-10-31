@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +22,9 @@ Route::get( '/', function () {
 Auth::routes();
 
 Route::get( '/home', [App\Http\Controllers\HomeController::class, 'index'] )->name( 'home' );
+
+//Posts form route are here
+//post insert
+Route::post( '/post_form', [PostController::class, 'post'] );
+//all posts show
+Route::get('all-posts',[PostController::class,'allPost'])->name('all_posts');

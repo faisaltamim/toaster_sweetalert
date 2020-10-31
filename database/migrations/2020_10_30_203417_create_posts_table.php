@@ -15,7 +15,8 @@ class CreatePostsTable extends Migration {
             $table->id();
             $table->string( 'title' );
             $table->string( 'author' )->nullable();
-            $table->text( 'decs' );
+            $table->string( 'tags' );
+            $table->text( 'desc' );
             $table->timestamps();
         } );
     }
