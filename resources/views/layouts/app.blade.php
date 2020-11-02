@@ -13,12 +13,16 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
+    
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+    
+    
    
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 </head>
 <body>
     <div id="app">
@@ -67,6 +71,7 @@
                                     </form>
                                 </div>
                             </li>
+                            
                         @endguest
                     </ul>
                 </div>
@@ -78,14 +83,58 @@
         </main>
     </div>
     {{-- toastr link --}}
-    <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-    <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
-
-    @if(Session::has('succMssgByTstr'))
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    
+    
     <script>
-        toastr.info(!!{  Session::get('succMssgByTstr') }!!);
+        @if(Session::Has('message'))
+            var type = "{{Session::Get('alert')}}";
+            switch(type){
+                case 'info':
+                    toastr.info("{{Session::Get('message')}}");
+                    break;
+                case 'warning':
+                    toastr.warning("{{Session::Get('message')}}");
+                    break;
+                case 'success':
+                    toastr.success("{{Session::Get('message')}}");
+                    break;
+                    
+            }
+                
+        @endif
+
+
+
+        //sweet alert 
+    $(document).ready(function(){
+        
+      $('#mydelete').click(function(e){
+        e.preventDefault();
+        var link = $(this).attr('href');
+        Swal.fire({
+            title: 'Do you want to save the changes?',
+            text:'It will be permanently deleted',
+            icon:'warning',
+            showDenyButton: true,
+            confirmButtonText: `Confirm Delete`,
+            denyButtonText: `Don't Delete`,
+
+            }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                window.location.href = link;
+            } else if (result.isDenied) {
+                Swal.fire('Your Post have not deleted', '', 'success')
+            }
+            });
+      });
+  })
     </script>
-    @endif
+    
+  
 
 </body>
 </html>

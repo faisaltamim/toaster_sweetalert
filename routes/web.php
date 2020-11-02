@@ -27,4 +27,6 @@ Route::get( '/home', [App\Http\Controllers\HomeController::class, 'index'] )->na
 //post insert
 Route::post( '/post_form', [PostController::class, 'post'] );
 //all posts show
-Route::get('all-posts',[PostController::class,'allPost'])->name('all_posts');
+Route::get( 'all-posts', [PostController::class, 'allPost'] )->name( 'all_posts' );
+//delete post
+Route::get( 'delete-post-{id}', [PostController::class, 'deletePost'] );
